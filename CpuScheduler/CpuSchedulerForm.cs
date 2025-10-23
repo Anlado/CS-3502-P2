@@ -248,7 +248,7 @@ Instructions:
         {
             var results = new List<SchedulingResult>();
             var currentTime = 0;
-            
+
             // Sort by arrival time for FCFS
             var sortedProcesses = processes.OrderBy(p => p.ArrivalTime).ToList();
             
@@ -855,6 +855,7 @@ Instructions:
             {
                 // STUDENTS: Example implementation using DataGrid data
                 var results = RunFCFSAlgorithm(processData);
+                Algorithms.RunFirstComeFirstServe("5");
 
                 // Update Results tab with detailed scheduling results
                 DisplaySchedulingResults(results, "FCFS - First Come First Serve");
