@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using static CpuScheduler.CpuSchedulerForm;
 
 namespace CpuScheduler
 {
@@ -423,31 +426,156 @@ namespace CpuScheduler
         // TODO: Add new scheduling algorithms below. Use the above methods as
         // examples when expanding functionality.
 
-        public static void RunShortestRemainingTimeLeft(string processCountInput)
+        public static SchedulingOutput RunHRRN(List<ProcessData> processes)
         {
-            if (!int.TryParse(processCountInput, out int processCount) || processCount <= 0) {
-                MessageBox.Show("Invalid number of processes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            var results = new List<SchedulingResult>();
+            var currentTime = 0;
+            var scheduled = new bool[processes.Count];
 
-
-
-
-        }
-
-        public static void RunLottery(string processCountInput)
-        {
-            if (!int.TryParse(processCountInput, out int processCount) || processCount <= 0) 
+            while (results.Count != processes.Count)
             {
-                MessageBox.Show("Invalid number of processes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                int largestIndex = -1;
+                double maxRR = -1.0;
+
+                for (int i = 0; i < processes.Count; i++)
+                {
+                    if (!scheduled[i] && processes[i].ArrivalTime <= currentTime)
+                    {
+                        double rr = 1.0 + ((double)(currentTime - processes[i].ArrivalTime) / processes[i].BurstTime);
+                        if (rr > maxRR)
+                        {
+                            maxRR = rr;
+                            largestIndex = i;
+                        }
+                    }
+                }
+
+                if (largestIndex == -1)
+                {
+                    currentTime++;
+                    continue;
+                }
+
+                int startTime = currentTime;
+                int finishTime = startTime + processes[largestIndex].BurstTime;
+                int waitingTime = startTime - processes[largestIndex].ArrivalTime;
+                int turnaroundTime = finishTime - processes[largestIndex].ArrivalTime;
+
+                results.Add(new SchedulingResult
+                {
+                    ProcessID = processes[largestIndex].ProcessID,
+                    ArrivalTime = processes[largestIndex].ArrivalTime,
+                    BurstTime = processes[largestIndex].BurstTime,
+                    StartTime = startTime,
+                    FinishTime = finishTime,
+                    WaitingTime = waitingTime,
+                    TurnaroundTime = turnaroundTime
+                });
+
+
+
+                scheduled[largestIndex] = true;
+                currentTime = finishTime;
             }
 
+            var metrics = new SchedulingMetrics
+            {
+                AverageWaitingTime = results.Average(r => r.WaitingTime),
+                AverageTurnaroundTime = results.Average(r => r.TurnaroundTime),
+                CPUUtilization = calculateCPUUtilization(results),
+                Throughput = (double)results.Count / (results.Max(r => r.FinishTime) - results.Min(r => r.ArrivalTime)),
+                AverageResponseTime = results.Average(r => r.StartTime - r.ArrivalTime)
+            };
 
-
-
+            return new SchedulingOutput
+            {
+                Results = results,
+                Metrics = metrics
+            };
         }
-       
+
+        public static SchedulingOutput RunSRTF(List<ProcessData> processes)
+        {
+            var results = new List<SchedulingResult>();
+            var currentTime = 0;
+
+            var remainingBurstTimes = new List<int>();
+            var startTimes = new List<List<int>>();
+
+            for (int i = 0; i < processes.Count; i++)
+            {
+                remainingBurstTimes.Add(processes[i].BurstTime);
+                startTimes.Add(new List<int>());
+            }
+
+            while (results.Count != processes.Count)
+            {
+                int smallest = -1;
+
+                for (int i = 0; i < remainingBurstTimes.Count; i++)
+                {
+                    if (remainingBurstTimes[i] == 0)
+                    {
+                        remainingBurstTimes[i] = -1;
+                        results.Add(new SchedulingResult
+                        {
+                            ProcessID = processes[i].ProcessID,
+                            ArrivalTime = processes[i].ArrivalTime,
+                            BurstTime = processes[i].BurstTime,
+                            StartTime = startTimes[i][0],
+                            FinishTime = currentTime,
+                            WaitingTime = currentTime - processes[i].ArrivalTime - processes[i].BurstTime,
+                            TurnaroundTime = currentTime - processes[i].ArrivalTime
+                        });
+                    }
+                    else if (processes[i].ArrivalTime <= currentTime && remainingBurstTimes[i] != -1)
+                    {
+                        if (smallest == -1 || remainingBurstTimes[i] < remainingBurstTimes[smallest])
+                        {
+                            smallest = i;
+                        }
+                    }
+                }
+
+                if (smallest == -1)
+                {
+                    currentTime++;
+                    continue;
+                }
+                else
+                {
+                    if (startTimes[smallest].Count <= 0)
+                    {
+                        startTimes[smallest].Add(currentTime);
+                    }
+                    remainingBurstTimes[smallest]--;
+                    currentTime++;
+                }
+            }
+
+            var metrics = new SchedulingMetrics
+            {
+                AverageWaitingTime = results.Average(r => r.WaitingTime),
+                AverageTurnaroundTime = results.Average(r => r.TurnaroundTime),
+                CPUUtilization = calculateCPUUtilization(results),
+                Throughput = (double)results.Count / (results.Max(r => r.FinishTime) - results.Min(r => r.ArrivalTime)),
+                AverageResponseTime = results.Average(r => r.StartTime - r.ArrivalTime)
+            };
+
+            return new SchedulingOutput
+            {
+                Results = results,
+                Metrics = metrics
+            };
+        }
+
+        public static double calculateCPUUtilization(List<SchedulingResult> results)
+        {
+            double totalBurst = results.Sum(r => r.BurstTime);
+            double totalTime = results.Max(r => r.FinishTime) - results.Min(r => r.ArrivalTime);
+            return (totalBurst / totalTime) * 100.0;
+        }
+
     }
 }
 
