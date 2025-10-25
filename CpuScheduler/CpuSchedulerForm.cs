@@ -511,7 +511,7 @@ Instructions:
                 CPUUtilization = Algorithms.calculateCPUUtilization(results),
                 Throughput = (double)results.Count / (results.Max(r => r.FinishTime) - results.Min(r => r.ArrivalTime)),
                 AverageResponseTime = results.Average(r => r.StartTime - r.ArrivalTime)
-            };
+            }; 
 
             return new SchedulingOutput
             {
@@ -590,11 +590,11 @@ Instructions:
             var summaryItem = new ListViewItem("SUMMARY");
             summaryItem.SubItems.Add(algorithmName);
             summaryItem.SubItems.Add($"{results.Count} processes");
-            summaryItem.SubItems.Add($"Avg Wait: {metrics.AverageWaitingTime}");
-            summaryItem.SubItems.Add($"Avg Turn: {metrics.AverageTurnaroundTime}");
-            summaryItem.SubItems.Add($"CPU Util: %{metrics.CPUUtilization}");
+            summaryItem.SubItems.Add($"Avg Wait: {Math.Round(metrics.AverageWaitingTime,3)}");
+            summaryItem.SubItems.Add($"Avg Turn: {Math.Round(metrics.AverageTurnaroundTime,3)}");
+            summaryItem.SubItems.Add($"CPU Util: %{Math.Round(metrics.CPUUtilization,3)}");
             summaryItem.SubItems.Add($"Throughput: {Math.Round(metrics.Throughput, 3)}");
-            summaryItem.SubItems.Add($"Response Time: {metrics.AverageResponseTime}");
+            summaryItem.SubItems.Add($"Response Time: {Math.Round(metrics.AverageResponseTime, 3)}");
             listView1.Items.Add(summaryItem);
 
             // TODO: STUDENTS - Add performance metrics calculation and display here

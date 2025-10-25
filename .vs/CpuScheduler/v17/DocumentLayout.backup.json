@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\mithi\\OneDrive\\Documentos\\GitHub\\CS-3502-CPU-Sim-Project-StartingPoint\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6954F540-2148-4D2F-879A-BE82576B1083}|CpuScheduler\\CpuScheduler.csproj|c:\\users\\mithi\\onedrive\\documentos\\github\\cs-3502-cpu-sim-project-startingpoint\\cpuscheduler\\algorithms.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6954F540-2148-4D2F-879A-BE82576B1083}|CpuScheduler\\CpuScheduler.csproj|solutionrelative:cpuscheduler\\algorithms.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6954F540-2148-4D2F-879A-BE82576B1083}|CpuScheduler\\CpuScheduler.csproj|c:\\users\\mithi\\onedrive\\documentos\\github\\cs-3502-cpu-sim-project-startingpoint\\cpuscheduler\\cpuschedulerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6954F540-2148-4D2F-879A-BE82576B1083}|CpuScheduler\\CpuScheduler.csproj|solutionrelative:cpuscheduler\\cpuschedulerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6954F540-2148-4D2F-879A-BE82576B1083}|CpuScheduler\\CpuScheduler.csproj|c:\\users\\mithi\\onedrive\\documentos\\github\\cs-3502-cpu-sim-project-startingpoint\\cpuscheduler\\algorithms.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6954F540-2148-4D2F-879A-BE82576B1083}|CpuScheduler\\CpuScheduler.csproj|solutionrelative:cpuscheduler\\algorithms.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6954F540-2148-4D2F-879A-BE82576B1083}|CpuScheduler\\CpuScheduler.csproj|C:\\Users\\mithi\\OneDrive\\Documentos\\GitHub\\CS-3502-CPU-Sim-Project-StartingPoint\\cpuscheduler\\cpuschedulerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
@@ -38,26 +38,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "CpuSchedulerForm.cs",
               "DocumentMoniker": "C:\\Users\\mithi\\OneDrive\\Documentos\\GitHub\\CS-3502-CPU-Sim-Project-StartingPoint\\CpuScheduler\\CpuSchedulerForm.cs",
               "RelativeDocumentMoniker": "CpuScheduler\\CpuSchedulerForm.cs",
               "ToolTip": "C:\\Users\\mithi\\OneDrive\\Documentos\\GitHub\\CS-3502-CPU-Sim-Project-StartingPoint\\CpuScheduler\\CpuSchedulerForm.cs",
               "RelativeToolTip": "CpuScheduler\\CpuSchedulerForm.cs",
-              "ViewState": "AgIAAKwBAAAAAAAAAAAkwCYCAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAAK8BAAAAAAAAAAAIwAMCAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-23T17:17:28.289Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Algorithms.cs",
               "DocumentMoniker": "C:\\Users\\mithi\\OneDrive\\Documentos\\GitHub\\CS-3502-CPU-Sim-Project-StartingPoint\\CpuScheduler\\Algorithms.cs",
               "RelativeDocumentMoniker": "CpuScheduler\\Algorithms.cs",
               "ToolTip": "C:\\Users\\mithi\\OneDrive\\Documentos\\GitHub\\CS-3502-CPU-Sim-Project-StartingPoint\\CpuScheduler\\Algorithms.cs",
               "RelativeToolTip": "CpuScheduler\\Algorithms.cs",
-              "ViewState": "AgIAACICAAAAAAAAAAAAADECAABXAAAAAAAAAA==",
+              "ViewState": "AgIAANcBAAAAAAAAAAAowOUBAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-23T17:17:31.993Z",
               "EditorCaption": ""

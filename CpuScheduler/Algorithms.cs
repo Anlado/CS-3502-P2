@@ -572,7 +572,7 @@ namespace CpuScheduler
         public static double calculateCPUUtilization(List<SchedulingResult> results)
         {
             double totalBurst = results.Sum(r => r.BurstTime);
-            double totalTime = results.Max(r => r.FinishTime) - results.Min(r => r.ArrivalTime);
+            double totalTime = results.Max(r => r.FinishTime);
             return (totalBurst / totalTime) * 100.0;
         }
 
