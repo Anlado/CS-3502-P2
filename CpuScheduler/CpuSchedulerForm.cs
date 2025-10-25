@@ -504,6 +504,9 @@ Instructions:
                 }
             }
 
+            results = processResults.Values.ToList();
+
+
             var metrics = new SchedulingMetrics
             {
                 AverageWaitingTime = results.Average(r => r.WaitingTime),
@@ -568,7 +571,7 @@ Instructions:
             listView1.Columns.Add("Start", 90, HorizontalAlignment.Center);
             listView1.Columns.Add("Finish", 90, HorizontalAlignment.Center);
             listView1.Columns.Add("Waiting", 90, HorizontalAlignment.Center);
-            listView1.Columns.Add("Turnaround", 110, HorizontalAlignment.Center);
+            listView1.Columns.Add("Turnaround", 130, HorizontalAlignment.Center);
 
             // Add process results
             foreach (var result in results)
@@ -589,12 +592,12 @@ Instructions:
 
             var summaryItem = new ListViewItem("SUMMARY");
             summaryItem.SubItems.Add(algorithmName);
-            summaryItem.SubItems.Add($"{results.Count} processes");
             summaryItem.SubItems.Add($"Avg Wait: {Math.Round(metrics.AverageWaitingTime,3)}");
             summaryItem.SubItems.Add($"Avg Turn: {Math.Round(metrics.AverageTurnaroundTime,3)}");
             summaryItem.SubItems.Add($"CPU Util: %{Math.Round(metrics.CPUUtilization,3)}");
             summaryItem.SubItems.Add($"Throughput: {Math.Round(metrics.Throughput, 3)}");
-            summaryItem.SubItems.Add($"Response Time: {Math.Round(metrics.AverageResponseTime, 3)}");
+            summaryItem.SubItems.Add($"Avg RspTm: {Math.Round(metrics.AverageResponseTime, 3)}");
+
             listView1.Items.Add(summaryItem);
 
             // TODO: STUDENTS - Add performance metrics calculation and display here
@@ -648,7 +651,8 @@ Instructions:
 
                             writer.WriteLine();
                             writer.WriteLine("Algorithm,Avg Waiting,Avg Turnaround,CPU Utilization (%),Throughput (proc/sec),Response Time");
-                            writer.WriteLine($"{algorithmName},{Math.Round(metrics.AverageWaitingTime, 3)},{Math.Round(metrics.AverageTurnaroundTime, 3)},{Math.Round(metrics.CPUUtilization, 3)},{Math.Round(metrics.Throughput, 3)},{Math.Round(metrics.AverageResponseTime, 3)}");
+                            writer.WriteLine($"{algorithmName},{Math.Round(metrics.AverageWaitingTime, 3)},{Math.Round(metrics.AverageTurnaroundTime, 3)}," +
+                                $"{Math.Round(metrics.CPUUtilization, 3)},{Math.Round(metrics.Throughput, 3)},{Math.Round(metrics.AverageResponseTime, 3)}");
 
                         }
 
@@ -663,15 +667,8 @@ Instructions:
                             "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-
-
             }
-
-
-
-
         }
-
 
 
         /// <summary>
